@@ -24,6 +24,22 @@ if CLIENT then
 	language.Add("tool.lite_stacker.count.help", "The amount to stack.")
 end
 
+function TOOL:GetDistanceToAdd(direction, ent)
+	if direction == "up" then
+		return ent:GetUp() * (math.abs(ent:OBBMins().z - ent:OBBMaxs().z) - 0.5) + (ent:GetUp() * math.Clamp(self:GetClientNumber("distance"), -200, 200))
+	elseif direction == "down" then
+		return -ent:GetUp() * (math.abs(ent:OBBMins().z - ent:OBBMaxs().z) - 0.5) + (-ent:GetUp() * math.Clamp(self:GetClientNumber("distance"), -200, 200))
+	elseif direction == "forward" then
+		return ent:GetForward() * (math.abs(ent:OBBMins().x - ent:OBBMaxs().x) - 0.5) + (ent:GetForward() * math.Clamp(self:GetClientNumber("distance"), -200, 200))
+	elseif direction == "back" then
+		return -ent:GetForward() * (math.abs(ent:OBBMins().x - ent:OBBMaxs().x) - 0.5) + (-ent:GetForward() * math.Clamp(self:GetClientNumber("distance"), -200, 200))
+	elseif direction == "right" then
+		return ent:GetRight() * (math.abs(ent:OBBMins().y - ent:OBBMaxs().y) - 0.5) + (ent:GetRight() * math.Clamp(self:GetClientNumber("distance"), -200, 200))
+	elseif direction == "left" then
+		return -ent:GetRight() * (math.abs(ent:OBBMins().y - ent:OBBMaxs().y) - 0.5) + (-ent:GetRight() * math.Clamp(self:GetClientNumber("distance"), -200, 200))
+	end
+end
+
 function TOOL:ValidateEntity(entity)
 	if not IsValid(entity) then return false end
 	if entity:IsPlayer() then return false end
@@ -62,14 +78,14 @@ function TOOL:LeftClick(trace)
 		if not ply:CheckLimit("props") then break end -- Check prop limit
 		if hook.Run("PlayerSpawnProp", ply, ent:GetModel()) == false then print("Failed pass") break end  -- Check if they're allowed to spawn it
 		
-		local newPos = targetEnt:GetPos()
-		if self:GetClientInfo("direction") == "up" then
-			newPos = newPos + (targetEnt:GetUp() * math.Clamp(self:GetClientNumber("distance"), -200, 200))
-		elseif self:GetClientInfo("direction") == "forward" then
-			newPos = newPos + (targetEnt:GetForward() * math.Clamp(self:GetClientNumber("distance"), -200, 200))
-		else
-			newPos = newPos + (targetEnt:GetRight() * math.Clamp(self:GetClientNumber("distance"), -200, 200))
-		end 
+		local newPos = targetEnt:GetPos() + self:GetDistanceToAdd(self:GetClientInfo("direction"), ent)
+		--if self:GetClientInfo("direction") == "up" then
+		--	newPos = newPos + (targetEnt:GetUp() * math.Clamp(self:GetClientNumber("distance"), -200, 200))
+		--elseif self:GetClientInfo("direction") == "forward" then
+		--	newPos = newPos + (targetEnt:GetForward() * math.Clamp(self:GetClientNumber("distance"), -200, 200))
+		--else
+		--	newPos = newPos + (targetEnt:GetRight() * math.Clamp(self:GetClientNumber("distance"), -200, 200))
+		--end 
 
 		if not util.IsInWorld(newPos) then break end
 
@@ -103,12 +119,15 @@ function TOOL.BuildCPanel(panel)
 
 	local combo = panel:AddControl("ListBox", {Label = "#tool.lite_stacker.direction"})
 	combo:AddOption("Up", {lite_stacker_direction = "up"})
-	combo:AddOption("Forward", {lite_stacker_direction = "forward"})
+	combo:AddOption("Down", {lite_stacker_direction = "down"})
+	combo:AddOption("Front", {lite_stacker_direction = "forward"})
+	combo:AddOption("Back", {lite_stacker_direction = "back"})
+	combo:AddOption("Left", {lite_stacker_direction = "left"})
 	combo:AddOption("Right", {lite_stacker_direction = "right"})
 end
 
 if CLIENT then
-	local currentEnt
+	--local currentEnt
 	function TOOL:Think()
 		local ply = self:GetOwner()
 		local ent = ply:GetEyeTrace().Entity
@@ -128,14 +147,15 @@ if CLIENT then
 			currentEnt:Spawn()
 		end
 
-		local newPos = ent:GetPos() 
-		if self:GetClientInfo("direction") == "up" then
-			newPos = newPos + (ent:GetUp() * math.Clamp(self:GetClientNumber("distance"), -200, 200))
-		elseif self:GetClientInfo("direction") == "forward" then
-			newPos = newPos + (ent:GetForward() * math.Clamp(self:GetClientNumber("distance"), -200, 200))
-		else
-			newPos = newPos + (ent:GetRight() * math.Clamp(self:GetClientNumber("distance"), -200, 200))
-		end 
+		local newPos = ent:GetPos() + self:GetDistanceToAdd(self:GetClientInfo("direction"), ent)
+--		if self:GetClientInfo("direction") == "up" then
+--			--( angle:Up()      * offset.x) + (-angle:Forward() * offset.z) + ( angle:Right()   * offset.y)
+--			newPos = newPos + (ent:GetUp() * math.Clamp(self:GetClientNumber("distance"), -200, 200))
+--		elseif self:GetClientInfo("direction") == "forward" then
+--			newPos = newPos + (ent:GetForward() * math.Clamp(self:GetClientNumber("distance"), -200, 200))
+--		else
+--			newPos = newPos + (ent:GetRight() * math.Clamp(self:GetClientNumber("distance"), -200, 200))
+--		end 
 
 		currentEnt:SetPos(newPos)
 		currentEnt:SetAngles(ent:GetAngles())
