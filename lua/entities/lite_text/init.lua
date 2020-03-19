@@ -52,6 +52,6 @@ net.Receive("LiteTool.TextPlacements.RequestData", function(_, ply)
 	net.Send(ply)
 end)
 
-hook.Add("CanTool", "LiteTool.TextPlacements.BlockToolgun", function(ply, tr, tool)
-	if (tr.Entity and (ty.Entity:GetClass() == "lite_text")) and (not (tool == "remover")) then return false end
-end)
+--hook.Add("CanTool", "LiteTool.TextPlacements.BlockToolgun", function(ply, tr, tool)
+--	if (tr.Entity and (ty.Entity:GetClass() == "lite_text")) and (not (tool == "remover")) then return false end
+--end)
