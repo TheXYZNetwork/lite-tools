@@ -51,3 +51,7 @@ net.Receive("LiteTool.TextPlacements.RequestData", function(_, ply)
 		net.WriteInt(ent.data.size, 32)
 	net.Send(ply)
 end)
+
+hook.Add("CanTool", "LiteTool.TextPlacements.BlockToolgun", function(ply, tr, tool)
+	if not (tool == "remover") then return false end
+end)
