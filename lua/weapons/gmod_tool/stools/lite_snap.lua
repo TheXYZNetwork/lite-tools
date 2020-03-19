@@ -59,6 +59,8 @@ function TOOL:LeftClick(trace)
 	if CLIENT then return true end
 	if not self:ValidateEntity(trace.Entity) then return end
 	self:RotateEntity(trace)
+
+	return true
 end
 
 function TOOL.BuildCPanel(panel)

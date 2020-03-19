@@ -91,6 +91,8 @@ function TOOL:LeftClick(trace)
 
 	undo.SetPlayer( ply )
 	undo.Finish()
+
+	return true
 end
 
 

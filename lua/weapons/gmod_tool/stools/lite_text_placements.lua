@@ -83,6 +83,8 @@ function TOOL:LeftClick(trace)
 		undo.AddEntity(ent)
 		undo.SetPlayer(ply)
 	undo.Finish()
+
+	return true
 end
 
 

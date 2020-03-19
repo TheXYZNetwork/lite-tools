@@ -56,6 +56,8 @@ function TOOL:LeftClick(trace)
 	if CLIENT then return true end
 	if not self:ValidateEntity(trace.Entity) then return end
 	self:RotateEntity(trace, {p = math.Clamp(self:GetClientNumber("pitch"), 0, 360), y = math.Clamp(self:GetClientNumber("yaw"), 0, 360), r = math.Clamp(self:GetClientNumber("roll"), 0, 360)})
+
+	return true
 end
 
 function TOOL:Reload(trace)

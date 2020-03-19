@@ -58,6 +58,8 @@ function TOOL:LeftClick(trace)
 	if CLIENT then return true end
 	if not self:ValidateEntity(trace.Entity) then return end
 	self:MoveEntity(trace, -1)
+
+	return true
 end
 
 function TOOL:RightClick(trace)
