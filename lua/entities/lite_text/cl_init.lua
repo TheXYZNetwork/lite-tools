@@ -22,13 +22,13 @@ function ENT:DrawTranslucent()
 
     local ang = self:GetAngles()
 
-	cam.Start3D2D(self:GetPos(), ang, 0.07)
+	cam.Start3D2D(self:GetPos(), ang, 0.1)
 		XYZUI.DrawLineBreakText(self.data.text, self.data.size, 0, 0, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, self.data.color)
 	cam.End3D2D()
 
 	ang:RotateAroundAxis(ang:Right(), 180)
 
-	cam.Start3D2D(self:GetPos(), ang, 0.07)
+	cam.Start3D2D(self:GetPos(), ang, 0.1)
 		XYZUI.DrawLineBreakText(self.data.text, self.data.size, 0, 0, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, self.data.color)
 	cam.End3D2D()
 end
