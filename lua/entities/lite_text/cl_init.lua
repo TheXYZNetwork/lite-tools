@@ -7,7 +7,6 @@ function ENT:DrawTranslucent()
 	if LocalPlayer():GetPos():DistToSqr(self:GetPos()) > 1000000 then return end
 
 	if (not self.data) and (not self.requested) then
-		print("Requested")
 		self.requested = true
 		net.Start("LiteTool.TextPlacements.RequestData")
 			net.WriteEntity(self)
@@ -15,8 +14,6 @@ function ENT:DrawTranslucent()
 
 		return
 	elseif (not self.data) then
-		print("Pending response")
-
 		return
 	end
 

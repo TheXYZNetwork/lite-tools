@@ -58,7 +58,6 @@ function TOOL:CreateEntity(entity, newPos)
 	newEnt:SetColor(entity:GetColor())
 	newEnt:Spawn()
 
-	print("Returning", newEnt)
 	return newEnt
 end
 
