@@ -75,7 +75,7 @@ function TOOL:LeftClick(trace)
 	for i = 1, math.Clamp(self:GetClientNumber("count"), 1, 5) do
 
 		if not ply:CheckLimit("props") then break end -- Check prop limit
-		if hook.Run("PlayerSpawnProp", ply, ent:GetModel()) == false then print("Failed pass") break end  -- Check if they're allowed to spawn it
+		if hook.Run("PlayerSpawnProp", ply, ent:GetModel()) == false then break end  -- Check if they're allowed to spawn it
 		
 		local newPos = targetEnt:GetPos() + self:GetDistanceToAdd(self:GetClientInfo("direction"), ent)
 		--if self:GetClientInfo("direction") == "up" then
