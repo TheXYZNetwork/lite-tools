@@ -4,7 +4,7 @@ TOOL.Information = {
 	{name = "left"}
 } 
 
-TOOL.ClientConVar["distance"] = "10"
+TOOL.ClientConVar["distance"] = "40"
 TOOL.ClientConVar["direction"] = "up"
 TOOL.ClientConVar["count"] = "1"
 
