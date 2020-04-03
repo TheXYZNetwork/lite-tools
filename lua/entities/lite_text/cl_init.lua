@@ -33,9 +33,9 @@ function ENT:DrawTranslucent()
 
 	cam.Start3D2D(self:GetPos(), ang, 0.17)
 		for k, v in pairs(self.data.text) do
-			local space = 75*#self.data.text
-			local startingPos = 0-(space/2)+(75/2)
-			XYZUI.DrawText(v, self.data.size[k] or 50, 0, startingPos+((k-1)*75), self.data.color[k], TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+			local space = 60*#self.data.text
+			local startingPos = 0-(space/2)+(60/2)
+			XYZUI.DrawText(v, self.data.size[k] or 50, 0, startingPos+((k-1)*60), self.data.color[k], TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 		end
 	cam.End3D2D()
 end
