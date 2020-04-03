@@ -22,22 +22,22 @@ function ENT:Initialize()
 	end
 
 	self.data = {}
-	self.data.text = "Placeholder Text"
-	self.data.color = Color(255, 255, 255)
-	self.data.size = 50
+	self.data.text = {"Placeholder Text"}
+	self.data.color = {Color(255, 255, 255)}
+	self.data.size = {50}
 end
 
 
-function ENT:SetText(text)
-	self.data.text = text
+function ENT:SetText(line, text)
+	self.data.text[line] = text
 end
 
-function ENT:SetTextColor(color)
-	self.data.color = color
+function ENT:SetTextColor(line, color)
+	self.data.color[line] = color
 end
 
-function ENT:SetTextSize(size)
-	self.data.size = size
+function ENT:SetTextSize(line, size)
+	self.data.size[line] = size
 end
 
 net.Receive("LiteTool.TextPlacements.RequestData", function(_, ply)
@@ -46,9 +46,7 @@ net.Receive("LiteTool.TextPlacements.RequestData", function(_, ply)
 
 	net.Start("LiteTool.TextPlacements.RespondData")
 		net.WriteEntity(ent)
-		net.WriteString(ent.data.text)
-		net.WriteColor(ent.data.color)
-		net.WriteInt(ent.data.size, 32)
+		net.WriteTable(ent.data)
 	net.Send(ply)
 end)
 

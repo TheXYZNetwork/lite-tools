@@ -4,13 +4,13 @@ TOOL.Information = {
 	{name = "left"}
 } 
 
-TOOL.ClientConVar["r"] = "255"
-TOOL.ClientConVar["g"] = "255"
-TOOL.ClientConVar["b"] = "255"
-TOOL.ClientConVar["a"] = "255"
-TOOL.ClientConVar["size"] = "50"
 for i=1, 5 do
 	TOOL.ClientConVar["text"..i] = ""
+	TOOL.ClientConVar["size"..i] = "50"
+	TOOL.ClientConVar["r"..i] = "255"
+	TOOL.ClientConVar["g"..i] = "255"
+	TOOL.ClientConVar["b"..i] = "255"
+	TOOL.ClientConVar["a"..i] = "255"
 end
 
 if SERVER then
@@ -23,30 +23,29 @@ if CLIENT then
     language.Add("tool.lite_text_placements.left", "Place the text.")
     language.Add("tool.lite_text_placements.right", "Update existing text.")
 
-	language.Add("tool.lite_text_placements.color", "Text Color")
-	language.Add("tool.lite_text_placements.color.help", "The color of the text.")
-	language.Add("tool.lite_text_placements.size", "Text Size")
-	language.Add("tool.lite_text_placements.size.help", "The size of the text.")
 	for i=1, 5 do
 		language.Add("tool.lite_text_placements.text"..i, "Line "..i)
 		language.Add("tool.lite_text_placements.text"..i..".help", "The text for line "..i..".")
+		language.Add("tool.lite_text_placements.size"..i, "Line "..i.." Text Size")
+		language.Add("tool.lite_text_placements.size"..i..".help", "The size of the text.")
+		language.Add("tool.lite_text_placements.color"..i, "Line "..i.." Text Color")
+		language.Add("tool.lite_text_placements.color"..i..".help", "The color of the text.")
 	end
 
-	language.Add("SBoxLimit.textplacements", "You've hit the text placement limit!")
 	language.Add("SBoxLimit_textplacements", "You've hit the text placement limit!")
 end
 
-function TOOL:BuildText()
-	local str = ""
+function TOOL:BuildLines()
+	local lines = {}
 	for i=1, 5 do
-		str = str.."\n"..string.sub(string.Replace(self:GetClientInfo("text"..i), "\n", ""), 1, 30)
+		lines[i] = self:GetClientInfo("text"..i)
+	end
+	for i=5, 1, -1 do
+		if not (lines[i] == "") then break end
+		lines[i] = nil
 	end
 
-	str = string.Trim(str, "\n")
-
-	if str == "" then return false end
-
-	return str
+	return lines
 end
 
 function TOOL:CreateEntity(trace)
@@ -69,13 +68,15 @@ function TOOL:LeftClick(trace)
 	local ply = self:GetOwner()
 
 	if not ply:CheckLimit("textplacements") then return end
-	local text = self:BuildText()
+	local text = self:BuildLines()
 	if not text then return end
 
 	local ent = self:CreateEntity(trace)
-	ent:SetText(text)
-	ent:SetTextColor(Color(math.Clamp(self:GetClientNumber("r", 255), 0, 255), math.Clamp(self:GetClientNumber("g", 255), 0, 255), math.Clamp(self:GetClientNumber("b", 255), 0, 255)))
-	ent:SetTextSize(math.Clamp(self:GetClientNumber("size", 50), 30, 100))
+	for k, v in pairs(text) do
+		ent:SetText(k, v)
+		ent:SetTextColor(k, Color(math.Clamp(self:GetClientNumber("r"..k, 255), 0, 255), math.Clamp(self:GetClientNumber("g"..k, 255), 0, 255), math.Clamp(self:GetClientNumber("b"..k, 255), 0, 255)))
+		ent:SetTextSize(k, math.Clamp(self:GetClientNumber("size"..k, 50), 30, 100))
+	end
 
 	ply:AddCount("textplacements", ent)
 	ply:AddCleanup("textplacements", ent)
@@ -90,9 +91,10 @@ end
 
 function TOOL.BuildCPanel(panel)
 	panel:AddControl("Header", {Text = "#tool.lite_text_placements.name", Description = "#tool.lite_text_placements.desc"})
-	panel:AddControl("Color", {Label = "#tool.lite_text_placements.color", Red = "lite_text_placements_r", Green = "lite_text_placements_g", Blue = "lite_text_placements_b", Alpha = "lite_text_placements_a"})
-	panel:AddControl("Slider", {Label = "#tool.lite_text_placements.size", Command = "lite_text_placements_size", Type = "Int", Min = 30, Max = 100})
 	for i=1, 5 do
+		panel:AddControl("Header", {Text = "#tool.lite_text_placements.text"..i, Description = "#tool.lite_text_placements.text"..i})
 		panel:AddControl("textbox", {Label = "#tool.lite_text_placements.text"..i, Command = "lite_text_placements_text"..i, MaxLenth = "30"})
+		panel:AddControl("Slider", {Label = "#tool.lite_text_placements.size"..i, Command = "lite_text_placements_size"..i, Type = "Int", Min = 30, Max = 100})
+		panel:AddControl("Color", {Label = "#tool.lite_text_placements.color"..i, Red = "lite_text_placements_r"..i, Green = "lite_text_placements_g"..i, Blue = "lite_text_placements_b"..i, Alpha = "lite_text_placements_a"..i})
 	end
 end
