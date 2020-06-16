@@ -35,9 +35,9 @@ function TOOL:MoveEntity(trace, dir)
 	phys:SetPos(target)
 	phys:Wake()
 
-	if not util.IsInWorld(ent:GetPos()) then
-		ent:Remove()
-	end
+--	if not util.IsInWorld(ent:GetPos()) then
+--		ent:Remove()
+--	end
 	
 	ent:GetPhysicsObject():EnableMotion(false)
 
