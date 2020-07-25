@@ -95,7 +95,7 @@ if CLIENT then
 		local props = net.ReadTable()
 
 		for k, v in pairs(props) do
-			k.RenderOverride = function(self) self:DrawModel() end
+			k.RenderOverride = function(self) render.SuppressEngineLighting(true) self:DrawModel() render.SuppressEngineLighting(false) end
 		end
 	end)
 end
