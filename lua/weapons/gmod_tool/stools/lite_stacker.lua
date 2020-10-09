@@ -78,13 +78,6 @@ function TOOL:LeftClick(trace)
 		if hook.Run("PlayerSpawnProp", ply, ent:GetModel()) == false then break end  -- Check if they're allowed to spawn it
 		
 		local newPos = targetEnt:GetPos() + self:GetDistanceToAdd(self:GetClientInfo("direction"), ent)
-		--if self:GetClientInfo("direction") == "up" then
-		--	newPos = newPos + (targetEnt:GetUp() * math.Clamp(self:GetClientNumber("distance"), -200, 200))
-		--elseif self:GetClientInfo("direction") == "forward" then
-		--	newPos = newPos + (targetEnt:GetForward() * math.Clamp(self:GetClientNumber("distance"), -200, 200))
-		--else
-		--	newPos = newPos + (targetEnt:GetRight() * math.Clamp(self:GetClientNumber("distance"), -200, 200))
-		--end 
 
 		if not util.IsInWorld(newPos) then break end
 
@@ -147,14 +140,6 @@ if CLIENT then
 		end
 
 		local newPos = ent:GetPos() + self:GetDistanceToAdd(self:GetClientInfo("direction"), ent)
---		if self:GetClientInfo("direction") == "up" then
---			--( angle:Up()      * offset.x) + (-angle:Forward() * offset.z) + ( angle:Right()   * offset.y)
---			newPos = newPos + (ent:GetUp() * math.Clamp(self:GetClientNumber("distance"), -200, 200))
---		elseif self:GetClientInfo("direction") == "forward" then
---			newPos = newPos + (ent:GetForward() * math.Clamp(self:GetClientNumber("distance"), -200, 200))
---		else
---			newPos = newPos + (ent:GetRight() * math.Clamp(self:GetClientNumber("distance"), -200, 200))
---		end 
 
 		currentEnt:SetPos(newPos)
 		currentEnt:SetAngles(ent:GetAngles())
