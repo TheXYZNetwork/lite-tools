@@ -50,6 +50,7 @@ net.Receive("LiteTool.TextPlacements.RequestData", function(_, ply)
 	net.Send(ply)
 end)
 
+-- Block doing things liek fading dooring it.
 hook.Add("CanTool", "LiteTool.TextPlacements.BlockToolgun", function(ply, tr, tool)
 	if (tr.Entity and (tr.Entity:GetClass() == "lite_text")) and (not (tool == "remover")) then return false end
 end)
