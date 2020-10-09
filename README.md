@@ -7,6 +7,7 @@ Lite-Tools is a lightweight and simplistic take on a handful of infamous and com
 - [Shadow Remover](https://steamcommunity.com/sharedfiles/filedetails/?id=1274272415)
 - [Stacker](https://steamcommunity.com/sharedfiles/filedetails/?id=264467687)
 - [3D2D Text Screens](https://steamcommunity.com/sharedfiles/filedetails/?id=109643223)
+
 Although all these tools work well and are easy to use, they often come with a wide range of features. Lite-Tools strips their ideas down to the core.
 
 ## Contributions
