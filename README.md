@@ -12,12 +12,12 @@ Although all these tools work well and are easy to use, they often come with a w
 
 ## So what exactly Lite-Tools provide?
 Lite-Tools provides the following tools:
-- Push/Pull | Push or pull a prop. Who'da guessed.
-- Rotate | Rotate a prop around all 3 axis.
-- Shadow Remover | Remove shadows from a prop.
-- Snap | Snap a prop to the closisit Nth degree.
-- Stacker | Stack props super high.
-- Text Placement | Simple 3D2D text.
+- **Push/Pull** | Push or pull a prop. Who'da guessed.
+- **Rotate** | Rotate a prop around all 3 axis.
+- **Shadow Remover** | Remove shadows from a prop.
+- **Snap** | Snap a prop to the closisit Nth degree.
+- **Stacker** | Stack props super high.
+- **Text Placement** | Simple 3D2D text.
 
 ## Contributions
 I encourage you to contribute to this. If it's a small bug fix or a crash exploit, all contributions are welcome. If you spot a better way of doing something, submit it! The best way to improve stuff is through collaboration.
