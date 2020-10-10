@@ -10,7 +10,7 @@ Lite-Tools is a lightweight and simplistic take on a handful of infamous and com
 
 Although all these tools work well and are easy to use, they often come with a wide range of features. Lite-Tools strips their ideas down to the core.
 
-## So what exactly Lite-Tools provide?
+## So what exactly does Lite-Tools provide?
 Lite-Tools provides the following tools:
 - **Push/Pull** | Push or pull a prop. Who'da guessed.
 - **Rotate** | Rotate a prop around all 3 axis.
