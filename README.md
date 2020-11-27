@@ -15,7 +15,7 @@ Lite-Tools provides the following tools:
 - **Push/Pull** | Push or pull a prop. Who'da guessed.
 - **Rotate** | Rotate a prop around all 3 axis.
 - **Shadow Remover** | Remove shadows from a prop.
-- **Snap** | Snap a prop to the closisit Nth degree.
+- **Snap** | Snap a prop to the closest Nth degree.
 - **Stacker** | Stack props super high.
 - **Text Placement** | Simple 3D2D text.
 
