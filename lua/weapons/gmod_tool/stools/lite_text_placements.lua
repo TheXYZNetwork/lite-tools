@@ -88,9 +88,12 @@ function TOOL:LeftClick(trace)
 	return true
 end
 
-
+local ConVarsDefault = TOOL:BuildConVarList()
 function TOOL.BuildCPanel(panel)
 	panel:AddControl("Header", {Text = "#tool.lite_text_placements.name", Description = "#tool.lite_text_placements.desc"})
+		
+	panel:AddControl("ComboBox", {MenuButton = 1, Folder = "lite_text_placements", Options = {["#preset.default"] = ConVarsDefault}, CVars = table.GetKeys(ConVarsDefault)})
+
 	for i=1, 5 do
 		panel:AddControl("Header", {Text = "#tool.lite_text_placements.text"..i, Description = "#tool.lite_text_placements.text"..i})
 		panel:AddControl("textbox", {Label = "#tool.lite_text_placements.text"..i, Command = "lite_text_placements_text"..i, MaxLenth = "30"})
