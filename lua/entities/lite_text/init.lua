@@ -43,6 +43,7 @@ end
 net.Receive("LiteTool.TextPlacements.RequestData", function(_, ply)
 	local ent = net.ReadEntity()
 	if not ent then return end
+	if ent:GetClass() ~= "lite_text" then return end
 
 	net.Start("LiteTool.TextPlacements.RespondData")
 		net.WriteEntity(ent)
